@@ -10,3 +10,5 @@ npm module for TTS with NICT
 [![Dependency Status](https://gemnasium.com/badges/github.com/OYusuke/nictalk.svg)](https://gemnasium.com/github.com/OYusuke/nictalk)
 
 [![Code Climate](https://codeclimate.com/repos/5873bfe4d977d62336001f6a/badges/1077f22d0c74e475197b/gpa.svg)](https://codeclimate.com/repos/5873bfe4d977d62336001f6a/feed)
+
+[![Build Status](https://travis-ci.org/OYusuke/nictalk.svg?branch=master)](https://travis-ci.org/OYusuke/nictalk)
