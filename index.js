@@ -1,7 +1,7 @@
 var fs = require("fs"),
+		childProcess = require('child_process');
 		req = require("request"),
 		Buffer = require("Buffer"),
-		childProcess = require('child_process');
 
 var defaultParams = {"version" : "1.1", "language" : "ja", "voiceType" : "*", "audioType" : "audio/x-wav", "directory" : "./voices/"};
 

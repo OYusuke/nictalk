@@ -1,0 +1,28 @@
+{
+  "name": "nictalk",
+  "version": "0.1.0",
+  "description": "npm module for TTS with NICT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OYusuke/nictalk.git"
+  },
+  "keywords": [
+    "nictalk",
+    "NICT",
+    "TTS"
+  ],
+  "author": "choki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OYusuke/nictalk/issues"
+  },
+  "homepage": "https://github.com/OYusuke/nictalk#readme",
+  "dependencies": {
+    "Buffer": "0.0.0",
+    "request": "^2.79.0"
+  }
+}
