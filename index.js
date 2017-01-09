@@ -1,9 +1,15 @@
 var fs = require("fs"),
-		childProcess = require('child_process');
+		childProcess = require('child_process'),
 		req = require("request"),
-		Buffer = require("Buffer"),
+		Buffer = require("Buffer");
 
-var defaultParams = {"version" : "1.1", "language" : "ja", "voiceType" : "*", "audioType" : "audio/x-wav", "directory" : "./voices/"};
+var defaultParams = {
+	"version" : "1.1",
+	"language" : "ja",
+	"voiceType" : "*",
+	"audioType" : "audio/x-wav",
+	"directory" : "./voices/"
+};
 
 var NICTalk = function(argv){
 	argv = !argv ? defaultParams : argv;
