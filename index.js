@@ -15,7 +15,7 @@ var defaultParams = {
 };
 
 var NICTalk = function(argv){
-	argv = !argv ? defaultParams : argv;
+	argv = argv ? argv : defaultParams;
 	this.version = argv.version ? argv.version : defaultParams.version;
 	this.language = argv.language ? argv.language : defaultParams.language;
 	this.voiceType = argv.voiceType ? argv.voiceType : defaultParams.voiceType;
