@@ -46,7 +46,7 @@ NICTalk.prototype = {
 		var file = argvs[0],
 				text = argvs.length > 1 ? argvs[1] : "",
 				callback = argvs.length > 1 ? argvs[argvs.length - 1] : "";
-		if (argvs.length == 2) {
+		if (argvs.length === 2) {
 			if (typeof(argvs[1]) === 'function')
 				text = "";
 			else
@@ -70,7 +70,7 @@ NICTalk.prototype = {
 			}),
 			json: true
 		}, function (error, response, body) {
-			if (!error && response.statusCode == 200) {
+			if (!error && response.statusCode === 200) {
 				try {
 					fs.writeFile(path, new Buffer(body["result"]["audio"], "base64"), function () {
 						return _play(path, callback);
@@ -80,6 +80,7 @@ NICTalk.prototype = {
 				}
 			}
 		}).on("error", function (err) {
+			console.log(err);
 			return _play('/home/pi/nodejs/voices/sayingError.wav', callback);
 		});
 	}
