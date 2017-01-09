@@ -11,7 +11,7 @@ var defaultParams = {
 	"language" : "ja",
 	"voiceType" : "*",
 	"audioType" : "audio/x-wav",
-	"directory" : "./voices/"
+	"directory" : ""
 };
 
 var NICTalk = function(argv){
@@ -69,19 +69,20 @@ NICTalk.prototype = {
 				]
 			}),
 			json: true
-		}, function (error, response, body) {
+		}, (error, response, body) => {
 			if (!error && response.statusCode === 200) {
 				try {
 					fs.writeFile(path, new Buffer(body["result"]["audio"], "base64"), function () {
 						return _play(path, callback);
 					});
 				} catch (e) {
-					return _play('/home/pi/nodejs/voices/sayingError.wav', callback);
+					return console.log(e);
 				}
+			} else {
+				console.log(error);
 			}
-		}).on("error", function (err) {
+		}).on("error", (err) => {
 			console.log(err);
-			return _play('/home/pi/nodejs/voices/sayingError.wav', callback);
 		});
 	}
 };
