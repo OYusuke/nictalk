@@ -26,6 +26,7 @@
   "homepage": "https://github.com/OYusuke/nictalk#readme",
   "dependencies": {
     "Buffer": "0.0.0",
-    "request": "^2.79.0"
+    "request": "^2.79.0",
+	"mocha": "3.2.0"
   }
 }
