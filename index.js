@@ -1,7 +1,10 @@
-var fs = require("fs"),
-		childProcess = require('child_process'),
-		req = require("request"),
-		Buffer = require("Buffer");
+#!/usr/bin/env node
+'use strict';
+
+var fs = require("fs");
+var childProcess = require("child_process");
+var req = require("request");
+var Buffer = require("Buffer");
 
 var defaultParams = {
 	"version" : "1.1",
@@ -39,12 +42,12 @@ NICTalk.prototype = {
 	},
 
 	speak : function() {
-		arguments = typeof(arguments[0]) === 'object' ? arguments[0] : arguments;
-		var file = arguments[0],
-				text = arguments.length > 1 ? arguments[1] : "",
-				callback = arguments.length > 1 ? arguments[arguments.length - 1] : "";
-		if (arguments.length == 2) {
-			if (typeof(arguments[1]) === 'function')
+		var argvs = typeof(arguments[0]) === 'object' ? arguments[0] : arguments;
+		var file = argvs[0],
+				text = argvs.length > 1 ? argvs[1] : "",
+				callback = argvs.length > 1 ? argvs[argvs.length - 1] : "";
+		if (argvs.length == 2) {
+			if (typeof(argvs[1]) === 'function')
 				text = "";
 			else
 				callback = "";
@@ -90,9 +93,9 @@ function _play(filepath, callback) {
     filepath = [filepath];
   }
 
-  if (! callback) {
+  if (!callback) {
     callback = function(error) {
-      if (error) throw error;
+      if (error){throw error;}
     }
   }
 
