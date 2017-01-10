@@ -18,6 +18,7 @@ This module relies on [NICT](http://komeisugiura.jp/software/software_jp.html) f
 And speech section is the diversion of the code of [simplayer](https://www.npmjs.com/package/simplayer).  
 Each technology belongs to them, respectively.  
 <br />
+
 ### Install
 Before use this, you need to build an environment to play sound.
 
@@ -25,7 +26,9 @@ Before use this, you need to build an environment to play sound.
 
 when you make the path, nictalk can be used on not only Node.js but also command line.
 <br />
+
 ### Usage
+
 ####On Node.js
 This is a basic source. Only run `node app.js`.
 
@@ -106,5 +109,7 @@ This works exactly the same as `speak(file, [text]);`.
 ex)	nictalk /home/voices/hello Hello.
 ```
 <br />
+
 ###LICENSE
+
 ####MIT
