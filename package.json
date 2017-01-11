@@ -1,6 +1,6 @@
 {
   "name": "nictalk",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "description": "npm module for TTS with NICT",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OYusuke/nictalk.git"
+    "url": "git+https://github.com/chokihub/nictalk.git"
   },
   "keywords": [
     "nictalk",
@@ -21,9 +21,9 @@
   "author": "choki",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/OYusuke/nictalk/issues"
+    "url": "https://github.com/chokihub/nictalk/issues"
   },
-  "homepage": "https://github.com/OYusuke/nictalk#readme",
+  "homepage": "https://github.com/chokihub/nictalk#readme",
   "dependencies": {
     "Buffer": "0.0.0",
     "request": "^2.79.0",

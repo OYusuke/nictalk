@@ -22,7 +22,7 @@ Each technology belongs to them, respectively.
 ### Install
 Before use this, you need to build an environment to play sound.
 
-```npm install nictalk```
+```npm install nictalk --save```
 
 when you make the path, nictalk can be used on not only Node.js but also command line.
 <br />
@@ -111,7 +111,10 @@ In this case, you have to global install this module.
 
 ```npm install nictalk -g```  
 
-the command is `nictalk 'file' [text]`. 
+the command is below.
+
+```nictalk 'file' [text]``` 
+
 This works exactly the same as `speak(file, [text]);`.
 
 ```
