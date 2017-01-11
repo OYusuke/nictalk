@@ -22,7 +22,7 @@ Each technology belongs to them, respectively.
 ### Install
 Before use this, you need to build an environment to play sound.
 
-```npm install nictalk -g```
+```npm install nictalk```
 
 when you make the path, nictalk can be used on not only Node.js but also command line.
 <br />
@@ -83,26 +83,35 @@ it can practically use like this.
 
 ```
 var NICTalk = require("nictalk");
-
+ 
 var Japanese = new NICTalk();
-
-var English = new NICTalk({"language" : "en", "directory" : "/home/english/"});
-
+ 
+var English = new NICTalk({"language" : "en", "directory" : "./english/"});
+ 
 var Chinese = new NICTalk();
-Chinese.setParams({"language" : "zh", "directory" : "/home/chinese/"});
-
+Chinese.setParams({"language" : "zh", "directory" : "./chinese/"});
+ 
 var Korean = new NICTalk();
-setLanguage("ko");
-setDirectory("/home/korean/");
-
-Japanese.speak("voice", "こんにちは");
-English.speak("voice", "Hello");
-Chinese.speak("voice", "你好");
-Korean.speak("voice", "안녕하세요");
+Korean.setLanguage("ko");
+Korean.setDirectory("./korean/");
+ 
+Japanese.speak("voice", "こんにちは", function(){
+  English.speak("voice", "Hello", function(){
+    Chinese.speak("voice", "你好", function(){
+      Korean.speak("voice", "안녕하세요");
+    });
+  });
+});
 ```
 
 ####On command line
-you can use the command `nictalk 'file' [text]`. 
+
+This module can be used on command line.  
+In this case, you have to global install this module.  
+
+```npm install nictalk -g```  
+
+the command is `nictalk 'file' [text]`. 
 This works exactly the same as `speak(file, [text]);`.
 
 ```
