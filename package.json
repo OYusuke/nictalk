@@ -1,6 +1,6 @@
 {
   "name": "nictalk",
-  "version": "0.7.6",
+  "version": "0.8.0",
   "description": "npm module for TTS with NICT",
   "main": "index.js",
   "scripts": {
@@ -23,5 +23,6 @@
   "bugs": {
     "url": "https://github.com/chokihub/nictalk/issues"
   },
-  "homepage": "https://github.com/chokihub/nictalk#readme"
+  "homepage": "https://github.com/chokihub/nictalk#readme",
+  "dependencies": {}
 }
