@@ -16,17 +16,17 @@ const defaultParams = {
 class NICTalk {
 
   constructor(argv = defaultParams) {
-  	for (let prop in defaultParams) this[prop] = argv[prop] ? argv[prop] : defaultParams[prop];
+    for (let prop in defaultParams) this[prop] = argv[prop] ? argv[prop] : defaultParams[prop];
   }
 
   setParams(argv) {
-  	for (let prop in defaultParams) this[prop] = argv[prop] ? argv[prop] : this[prop];
+    for (let prop in defaultParams) this[prop] = argv[prop] ? argv[prop] : this[prop];
   }
   setLanguage(language) {
-  	this.language = language ? language : this.language;
+    this.language = language ? language : this.language;
   }
   setDirectory(directory) {
-  	this.directory = directory ? directory : this.directory;
+    this.directory = directory ? directory : this.directory;
   }
 
   speak(...argvs) {
@@ -74,7 +74,7 @@ var _getSound = (path, postData, callback) => {
     }
   };
 
-	var req = http.request(options, (res) => {
+  var req = http.request(options, (res) => {
     var data = "";
     res.setEncoding('utf8')
     .on('data', (chunk) => data += chunk)
@@ -86,7 +86,7 @@ var _getSound = (path, postData, callback) => {
       } catch (e) {
         return console.log(e);
       }
-		});
+    });
   }).on('error', (e) => console.log(e));
   req.write(postData);
   req.end();
