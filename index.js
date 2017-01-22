@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 'use strict';
 
-var fs = require("fs");
-var childProcess = require("child_process");
-var req = require("request");
-var Buffer = require("Buffer");
+const fs = require("fs"),
+			childProcess = require("child_process"),
+			req = require("request");
 
-var defaultParams = {
+const defaultParams = {
 	"version" : "1.1",
 	"language" : "ja",
 	"voiceType" : "*",
@@ -14,46 +13,31 @@ var defaultParams = {
 	"directory" : ""
 };
 
-var NICTalk = function(argv){
-	argv = argv ? argv : defaultParams;
-	this.version = argv.version ? argv.version : defaultParams.version;
-	this.language = argv.language ? argv.language : defaultParams.language;
-	this.voiceType = argv.voiceType ? argv.voiceType : defaultParams.voiceType;
-	this.audioType = argv.audioType ? argv.audioType : defaultParams.audioType;
-	this.directory = argv.directory ? argv.directory : defaultParams.directory;
-}
+class NICTalk {
 
-NICTalk.prototype = {
+	constructor(argv = defaultParams){
+		for (let prop in defaultParams) this[prop] = argv[prop] ? argv[prop] : defaultParams[prop];
+	}
 
-	setParams : function(argv) {
-		this.version = argv.version ? argv.version : this.version;
-		this.language = argv.language ? argv.language : this.language;
-		this.voiceType = argv.voiceType ? argv.voiceType : this.voiceType;
-		this.audioType = argv.audioType ? argv.audioType : this.audioType;
-		this.directory = argv.directory ? argv.directory : this.directory;
-	},
-
-	setLanguage : function(language) {
+	setParams (argv) {
+		for (let prop in defaultParams) this[prop] = argv[prop] ? argv[prop] : this[prop];
+	}
+	setLanguage (language) {
 		this.language = language ? language : this.language;
-	},
-
-	setDirectory : function(directory) {
+	}
+	setDirectory (directory) {
 		this.directory = directory ? directory : this.directory;
-	},
+	}
 
-	speak : function() {
-		var argvs = typeof(arguments[0]) === 'object' ? arguments[0] : arguments;
+	speak (...argvs) {
+		argvs = typeof argvs[0] === 'object' ? argvs[0] : argvs;
 		var file = argvs[0],
 				text = argvs.length > 1 ? argvs[1] : "",
-				callback = argvs.length > 1 ? argvs[argvs.length - 1] : "";
-		if (argvs.length === 2) {
-			if (typeof(argvs[1]) === 'function')
-				text = "";
-			else
-				callback = "";
+				callback = argvs.length > 1 ? argvs[argvs.length - 1] : "",
+				path = this.directory + file + ".wav";
+		if(argvs.length === 2){
+			typeof argvs[1] === 'function' ? text = "" : callback = "";
 		}
-	
-		var path = this.directory + file + ".wav";
 		if (!text)
 			return _play(path, callback);
 		req.post({
@@ -65,14 +49,13 @@ NICTalk.prototype = {
 						"text": text,
 						"voiceType": this.voiceType,
 						"audioType": this.audioType
-					}
-				]
+					}]
 			}),
 			json: true
 		}, (error, response, body) => {
 			if (!error && response.statusCode === 200) {
 				try {
-					fs.writeFile(path, new Buffer(body["result"]["audio"], "base64"), function () {
+					fs.writeFile(path, body["result"]["audio"], "base64", () => {
 						return _play(path, callback);
 					});
 				} catch (e) {
@@ -81,33 +64,22 @@ NICTalk.prototype = {
 			} else {
 				console.log(error);
 			}
-		}).on("error", (err) => {
-			console.log(err);
-		});
+		}).on("error", (err) => console.log(err));
 	}
-};
 
-function _play(filepath, callback) {
-  var mediaSoundPlayer = '"(New-Object System.Media.SoundPlayer "' + filepath + '").PlaySync()';
-  var player = process.platform === 'darwin' ? 'afplay' : 'aplay';
-
-  if (typeof filepath === 'string') {
-    filepath = [filepath];
-  }
-
-  if (!callback) {
-    callback = function(error) {
-      if (error){throw error;}
-    }
-  }
-
-  return process.platform === 'win32'
-    ? childProcess.exec('powershell.exe ' + mediaSoundPlayer, callback)
-    : childProcess.execFile(player, filepath, callback);
 }
+
+var _play = (...argv) => {
+  var mediaSoundPlayer = '"(New-Object System.Media.SoundPlayer "' + filepath + '").PlaySync()',
+  		player = process.platform === 'darwin' ? 'afplay' : 'aplay',
+			filepath = typeof argv[0] === 'string' ? [argv[0]] : argv[0],
+		  callback = argv[1] ? argv[1] : (error) => {if(error) throw error};
+
+  return process.platform === 'win32' ?
+		childProcess.exec('powershell.exe ' + mediaSoundPlayer, callback) :
+		childProcess.execFile(player, filepath, callback);
+};
 
 module.exports = NICTalk;
 
-if (require.main && require.main.id === module.id) {
-  (new NICTalk()).speak(process.argv.slice(2));
-}
+if (require.main && require.main.id === module.id) (new module.exports()).speak(process.argv.slice(2));

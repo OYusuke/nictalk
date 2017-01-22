@@ -111,7 +111,7 @@ In this case, you have to global install this module.
 
 ```npm install nictalk -g```  
 
-the command is below.
+The command is below.
 
 ```nictalk 'file' [text]``` 
 
