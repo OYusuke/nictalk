@@ -2,8 +2,8 @@
 'use strict';
 
 const fs = require("fs"),
-	http = require('http'),
-	childProcess = require("child_process");
+      http = require('http'),
+      childProcess = require("child_process");
 
 const defaultParams = {
 	"version": "1.1",
@@ -55,7 +55,7 @@ var _playSound = (...argv) => {
 	player = process.platform === 'darwin' ? 'afplay' : 'aplay',
 	filepath = typeof argv[0] === 'string' ? [argv[0]] : argv[0],
 	callback = argv[1] ? argv[1] : (error) => {
-		if (error) throw error
+		if (error) throw error;
 	};
 
 	return process.platform === 'win32' ?
@@ -80,7 +80,7 @@ var _getSound = (path, postData, callback) => {
 		.on('data', (chunk) => data += chunk)
 		.on('end', () => {
 			try {
-				fs.writeFile(path, JSON.parse(data)["result"]["audio"], "base64", () => {
+				fs.writeFile(path, JSON.parse(data).result.audio, "base64", () => {
 					return _playSound(path, callback);
 				});
 			} catch (e) {
@@ -90,7 +90,7 @@ var _getSound = (path, postData, callback) => {
 	}).on('error', (e) => console.log(e));
 	req.write(postData);
 	req.end();
-}
+};
 
 module.exports = NICTalk;
 
