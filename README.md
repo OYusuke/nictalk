@@ -3,7 +3,7 @@ npm module for TTS with NICT
 
 [![NPM](https://nodei.co/npm/nictalk.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/nictalk/)
 
-[![Build Status](https://travis-ci.org/OYusuke/nictalk.svg?branch=master)](https://travis-ci.org/OYusuke/nictalk)
+[![Build Status](https://travis-ci.org/chokihub/nictalk.svg?branch=master)](https://travis-ci.org/chokihub/nictalk)
 [![npm version](https://badge.fury.io/js/nictalk.svg)](https://badge.fury.io/js/nictalk)
 [![Dependency Status](https://gemnasium.com/badges/github.com/OYusuke/nictalk.svg)](https://gemnasium.com/github.com/OYusuke/nictalk)
 [![Code Climate](https://codeclimate.com/repos/5873bfe4d977d62336001f6a/badges/1077f22d0c74e475197b/gpa.svg)](https://codeclimate.com/repos/5873bfe4d977d62336001f6a/feed)
@@ -83,18 +83,18 @@ it can practically use like this.
 
 ```
 var NICTalk = require("nictalk");
- 
+
 var Japanese = new NICTalk();
- 
+
 var English = new NICTalk({"language" : "en", "directory" : "./english/"});
- 
+
 var Chinese = new NICTalk();
 Chinese.setParams({"language" : "zh", "directory" : "./chinese/"});
- 
+
 var Korean = new NICTalk();
 Korean.setLanguage("ko");
 Korean.setDirectory("./korean/");
- 
+
 Japanese.speak("voice", "こんにちは", function(){
   English.speak("voice", "Hello", function(){
     Chinese.speak("voice", "你好", function(){
@@ -113,7 +113,7 @@ In this case, you have to global install this module.
 
 The command is below.
 
-```nictalk 'file' [text]``` 
+```nictalk 'file' [text]```
 
 This works exactly the same as `speak(file, [text]);`.
 

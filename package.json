@@ -1,6 +1,6 @@
 {
   "name": "nictalk",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "npm module for TTS with NICT",
   "main": "index.js",
   "scripts": {
