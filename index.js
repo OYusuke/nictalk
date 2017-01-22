@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 'use strict';
 
-const fs = require("fs"),
+const fs = require('fs'),
       http = require('http'),
-      childProcess = require("child_process");
+      childProcess = require('child_process');
 
 const defaultParams = {
-  "version": "1.1",
-  "language": "ja",
-  "voiceType": "*",
-  "audioType": "audio/x-wav",
-  "directory": ""
+  'version': '1.1',
+  'language': 'ja',
+  'voiceType': '*',
+  'audioType': 'audio/x-wav',
+  'directory': ''
 };
 
 class NICTalk {
@@ -32,18 +32,18 @@ class NICTalk {
   speak(...argvs) {
     argvs = typeof argvs[0] === 'object' ? argvs[0] : argvs;
     var file = argvs[0],
-    text = argvs.length > 1 ? argvs[1] : "",
-    callback = argvs.length > 1 ? argvs[argvs.length - 1] : "",
-    path = this.directory + file + ".wav";
-    argvs.length === 2 && (typeof argvs[1] === 'function' ? text = "" : callback = "");
+    text = argvs.length > 1 ? argvs[1] : '',
+    callback = argvs.length > 1 ? argvs[argvs.length - 1] : '',
+    path = this.directory + file + '.wav';
+    argvs.length === 2 && (typeof argvs[1] === 'function' ? text = '' : callback = '');
 
     var postData = JSON.stringify({
-      method: "speak",
+      method: 'speak',
       params: [this.version, {
-        "language": this.language,
-        "text": text,
-        "voiceType": this.voiceType,
-        "audioType": this.audioType
+        'language': this.language,
+        'text': text,
+        'voiceType': this.voiceType,
+        'audioType': this.audioType
       }]
     });
     text ? _getSound(path, postData, callback) : _playSound(path, callback);
@@ -65,11 +65,11 @@ var _playSound = (...argv) => {
 
 var _getSound = (path, postData, callback) => {
   var options = {
-    hostname: "rospeex.ucri.jgn-x.jp",
+    hostname: 'rospeex.ucri.jgn-x.jp',
     method: 'POST',
     path: '/nauth_json/jsServices/VoiceTraSS',
     headers: {
-      'Content-Type': "application/json",
+      'Content-Type': 'application/json',
       'Content-Length': Buffer.byteLength(postData)
     }
   };
@@ -80,7 +80,7 @@ var _getSound = (path, postData, callback) => {
     .on('data', (chunk) => data += chunk)
     .on('end', () => {
       try {
-        fs.writeFile(path, JSON.parse(data).result.audio, "base64", () => {
+        fs.writeFile(path, JSON.parse(data).result.audio, 'base64', () => {
           return _playSound(path, callback);
         });
       } catch (e) {
