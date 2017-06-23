@@ -36,7 +36,7 @@ class NICTalk {
         callback = argvs.length > 1 ? argvs[argvs.length - 1] : '',
         path = this.directory + file + '.wav';
     argvs.length === 2 && (typeof argvs[1] === 'function' ? text = '' : callback = '');
-    
+
     var postData = JSON.stringify({
           method: 'speak',
           params: [this.version, {
@@ -57,15 +57,14 @@ var _playSound = (...argv) => {
       callback = argv[1] ? argv[1] : (error) => {
         if (error) throw error;
       };
-
   return process.platform === 'win32' ?
   childProcess.exec('powershell.exe ' + mediaSoundPlayer, callback) :
-  childProcess.execFile(player, filepath, callback);
+  childProcess.exec(player, filepath, callback);
 };
 
 var _getSound = (path, postData, callback) => {
   var options = {
-      hostname: 'rospeex.ucri.jgn-x.jp',
+      hostname: 'rospeex.nict.go.jp',
       method: 'POST',
       path: '/nauth_json/jsServices/VoiceTraSS',
       headers: {
@@ -73,20 +72,23 @@ var _getSound = (path, postData, callback) => {
         'Content-Length': Buffer.byteLength(postData)
       }
   };
-
   var req = http.request(options, (res) => {
     var data = "";
     res.setEncoding('utf8')
     .on('data', (chunk) => data += chunk)
-    .on('end', () =>
-      fs.writeFile(path, JSON.parse(data).result.audio, 'base64', (e) =>
-        e ? _playSound(__dirname+"/error.wav", console.log(e)) : _playSound(path, callback))
-    );
-  }).on('error', (e) => _playSound(__dirname+"/error.wav", console.log(e)));
+    .on('end', () => {
+      try {
+        fs.writeFile(path, JSON.parse(data).result.audio, 'base64', (e) =>
+          e ? _playSound(__dirname+"/error.wav", console.log(e)) : _playSound(path, callback));
+      } catch (e) {
+        _playSound(__dirname+"/error.wav", console.log(e));
+      }
+    }).on('error', (e) => _playSound(__dirname+"/error.wav", console.log(e)));
+  });
   req.write(postData);
+  req.on('error', (e) => _playSound(__dirname+"/error.wav", console.log(e)));
   req.end();
 };
 
 module.exports = NICTalk;
-
 require.main && require.main.id === module.id && (new module.exports()).speak(process.argv.slice(2));
